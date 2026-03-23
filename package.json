@@ -1,0 +1,115 @@
+{
+  "name": "lmstudio-assistant",
+  "displayName": "LM Studio Assistant",
+  "description": "VS Code assistant powered by LM Studio with workspace tools for reading, searching, and editing files.",
+  "version": "0.0.2",
+  "publisher": "elliotone",
+  "icon": "media/lmstudio.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ElliotOne/lmstudio-assistant-vscode.git"
+  },
+  "homepage": "https://github.com/ElliotOne/lmstudio-assistant-vscode#readme",
+  "bugs": {
+    "url": "https://github.com/ElliotOne/lmstudio-assistant-vscode/issues"
+  },
+  "keywords": [
+    "lm-studio",
+    "vscode",
+    "assistant",
+    "ai",
+    "local-llm"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onCommand:lmstudioAssistant.ask",
+    "onCommand:lmstudioAssistant.openChat",
+    "onView:lmstudioAssistant.chatView"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "lmstudioAssistant.ask",
+        "title": "LM Studio Assistant: Ask"
+      },
+      {
+        "command": "lmstudioAssistant.openChat",
+        "title": "LM Studio Assistant: Open Chat"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "lmstudioAssistant",
+          "title": "LM Studio",
+          "icon": "media/lmstudio.png"
+        }
+      ]
+    },
+    "views": {
+      "lmstudioAssistant": [
+        {
+          "id": "lmstudioAssistant.chatView",
+          "name": "Assistant Chat",
+          "type": "webview"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "LM Studio Assistant",
+      "properties": {
+        "lmstudioAssistant.baseUrl": {
+          "type": "string",
+          "default": "http://localhost:1234/v1",
+          "description": "LM Studio OpenAI-compatible base URL"
+        },
+        "lmstudioAssistant.model": {
+          "type": "string",
+          "default": "local-model",
+          "description": "Model name as shown by LM Studio server"
+        },
+        "lmstudioAssistant.maxToolTurns": {
+          "type": "number",
+          "default": 6,
+          "minimum": 1,
+          "description": "Maximum tool-call turns per request"
+        },
+        "lmstudioAssistant.maxSearchResults": {
+          "type": "number",
+          "default": 50,
+          "minimum": 1,
+          "description": "Maximum search results to return"
+        },
+        "lmstudioAssistant.maxFileBytes": {
+          "type": "number",
+          "default": 200000,
+          "minimum": 1000,
+          "description": "Maximum bytes to read per file"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "publish:patch": "vsce publish patch",
+    "publish:minor": "vsce publish minor",
+    "publish:major": "vsce publish major"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.2",
+    "typescript": "^5.3.3"
+  }
+}
