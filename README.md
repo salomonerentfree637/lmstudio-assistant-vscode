@@ -1,0 +1,1 @@
+# lmstudio-assistant-vscode
